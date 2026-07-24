@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `1.9.9`
+Version: `2.0.0`
 
 Expected release assets:
 
