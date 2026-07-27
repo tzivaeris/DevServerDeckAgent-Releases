@@ -6,13 +6,13 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.1.0`
+Version: `2.1.1`
 
 Expected release assets:
 
 - `DevServerDeckAgent-win-x64.zip`
 - `DevServerDeckAgent-linux-x64.zip`
 - `DevServerDeckAgent-macos-x64.zip`
-- `DevServerDeckAgent-macos-arm64.zip` (temporarily not published as of `2.1.0` - macOS arm64 builds are paused pending a code-signing fix; the last available arm64 build is attached to the `v2.0.6` release)
+- `DevServerDeckAgent-macos-arm64.zip` (temporarily not published as of `2.1.1` - macOS arm64 builds are paused pending a code-signing fix; the last available arm64 build is attached to the `v2.0.6` release)
 
 Release ZIPs are attached to GitHub Releases and are intentionally not committed to this repository.
