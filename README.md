@@ -16,3 +16,18 @@ Expected release assets:
 - `DevServerDeckAgent-macos-arm64.zip` (temporarily not published as of `2.1.4` - macOS arm64 builds are paused pending a code-signing fix; the last available arm64 build is attached to the `v2.0.6` release)
 
 Release ZIPs are attached to GitHub Releases and are intentionally not committed to this repository.
+
+## Headless Linux (VPS) install
+
+For a bare Linux server with no desktop environment, a one-line installer sets up the agent as a systemd service that starts on boot and restarts automatically if it ever crashes:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/tzivaeris/DevServerDeckAgent-Releases/main/install.sh | sudo bash -s -- --token=<AGENT_TOKEN>
+```
+
+Get an Agent Token from the dashboard: Account & Billing -> Agent Tokens. Requires a systemd-based distribution (Ubuntu, Debian, and most current VPS images qualify) and root/sudo.
+
+Useful commands afterward:
+- `systemctl status dev-server-deck-agent` - check it's running
+- `journalctl -u dev-server-deck-agent -f` - follow its logs
+- `sudo systemctl restart dev-server-deck-agent` - restart it manually
