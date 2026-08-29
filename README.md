@@ -6,12 +6,13 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.12.0`
+Version: `2.12.1`
 
 Expected release assets:
 
 - `DevServerDeckAgent-win-x64.zip`
 - `DevServerDeckAgent-linux-x64.zip`
+- `DevServerDeckAgent-linux-arm64.zip` (as of `2.12.1`)
 - `DevServerDeckAgent-macos-x64.zip`
 - `DevServerDeckAgent-macos-arm64.zip` (temporarily not published as of `2.1.4` - macOS arm64 builds are paused pending a code-signing fix; the last available arm64 build is attached to the `v2.0.6` release)
 
@@ -25,7 +26,7 @@ For a bare Linux server with no desktop environment, a one-line installer sets u
 curl -fsSL https://raw.githubusercontent.com/tzivaeris/DevServerDeckAgent-Releases/main/install.sh | sudo bash -s -- --token=<AGENT_TOKEN>
 ```
 
-Get an Agent Token from the dashboard: Account & Billing -> Agent Tokens. Requires a systemd-based distribution (Ubuntu, Debian, and most current VPS images qualify) and root/sudo.
+Get an Agent Token from the dashboard: Account & Billing -> Agent Tokens. Requires a systemd-based distribution (Ubuntu, Debian, and most current VPS images qualify) and root/sudo. Both x86_64 and arm64 (aarch64) are supported - the installer detects your CPU architecture automatically, so the same command works on either.
 
 Useful commands afterward:
 - `systemctl status dev-server-deck-agent` - check it's running
