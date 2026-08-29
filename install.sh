@@ -144,6 +144,17 @@ chmod 600 "/etc/systemd/system/$UNIT_NAME"
 # non-root service user, which polkit would otherwise deny with no visible
 # error. Grant exactly this one user permission to manage exactly this one
 # unit, nothing broader.
+#
+# Known limitation: this JavaScript-format polkit rule file requires
+# polkit >= 0.106. Debian 11, Ubuntu 22.04 LTS, and earlier ship an older
+# polkit that uses the legacy .pkla local-authority format instead and
+# silently ignores anything placed under /etc/polkit-1/rules.d/. On those
+# systems this grant is a no-op: the agent still recovers via systemd's own
+# Restart=always retry loop (RestartSec=5) once the helper has restored a
+# working binary, it just won't get the faster explicit `systemctl restart`
+# this grant was meant to enable, and the helper's own WARNING log line will
+# show that restart attempt failing rather than silently claiming success.
+mkdir -p /etc/polkit-1/rules.d
 cat > "/etc/polkit-1/rules.d/49-dev-server-deck-agent.rules" <<POLKIT
 polkit.addRule(function(action, subject) {
   if (action.id == "org.freedesktop.systemd1.manage-units" &&
