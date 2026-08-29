@@ -59,6 +59,13 @@ if [ -z "$RUN_AS_USER" ]; then
   echo "  curl -fsSL <url> | bash -s -- --token=<AGENT_TOKEN> --user=<username>" >&2
   exit 1
 fi
+# Same injection surface as AGENT_TOKEN above (this value also lands in the
+# unit file's own ExecStart=/User= directives) - --user is operator-supplied,
+# so validate it the same way rather than trusting it's a real username.
+if ! [[ "$RUN_AS_USER" =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "The --user value contains unexpected characters. Usernames should only contain letters, digits, dots, dashes, and underscores." >&2
+  exit 1
+fi
 RUN_AS_HOME=$(getent passwd "$RUN_AS_USER" | cut -d: -f6)
 if [ -z "$RUN_AS_HOME" ]; then
   echo "Could not resolve a home directory for user $RUN_AS_USER." >&2
