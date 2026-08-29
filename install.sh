@@ -21,9 +21,11 @@ if [ ! -d /run/systemd/system ]; then
 fi
 
 AGENT_TOKEN=""
+CLI_USER=""
 for arg in "$@"; do
   case "$arg" in
     --token=*) AGENT_TOKEN="${arg#--token=}" ;;
+    --user=*) CLI_USER="${arg#--user=}" ;;
   esac
 done
 if [ -z "$AGENT_TOKEN" ]; then
@@ -32,12 +34,31 @@ if [ -z "$AGENT_TOKEN" ]; then
   exit 1
 fi
 
+# Unit-file ExecStart= lines have their own word-splitting and %-specifier
+# expansion rules - this is not a shell command line, so bash quoting does
+# not protect it. A token containing whitespace would silently split into
+# extra argv elements, and a literal % would trigger systemd specifier
+# expansion. Reject anything outside a safe character set up front.
+if ! [[ "$AGENT_TOKEN" =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "The provided --token value contains unexpected characters. Agent Tokens should only contain letters, digits, dots, dashes, and underscores." >&2
+  exit 1
+fi
+
 # The service must run as a real, non-root user - registered project
 # commands run as whatever user the agent runs as, and running arbitrary
 # project commands as root on a VPS would be an avoidable privilege-
-# escalation surface. Falls back to root only if genuinely invoked as root
-# directly (no sudo, no SUDO_USER) rather than failing the install outright.
-RUN_AS_USER="${SUDO_USER:-$(whoami)}"
+# escalation surface. We never fall back to root implicitly (e.g. via
+# whoami) - if neither sudo nor --user tells us who that user is, fail
+# loudly instead of silently installing a root-run service.
+RUN_AS_USER="${SUDO_USER:-$CLI_USER}"
+if [ -z "$RUN_AS_USER" ]; then
+  echo "Could not determine which non-root user the agent should run as." >&2
+  echo "Either run this installer via sudo as a real login user, e.g.:" >&2
+  echo "  curl -fsSL <url> | sudo bash -s -- --token=<AGENT_TOKEN>" >&2
+  echo "or, if you are genuinely running as root with no other user available, pass --user explicitly:" >&2
+  echo "  curl -fsSL <url> | bash -s -- --token=<AGENT_TOKEN> --user=<username>" >&2
+  exit 1
+fi
 RUN_AS_HOME=$(getent passwd "$RUN_AS_USER" | cut -d: -f6)
 if [ -z "$RUN_AS_HOME" ]; then
   echo "Could not resolve a home directory for user $RUN_AS_USER." >&2
@@ -76,6 +97,7 @@ User=$RUN_AS_USER
 [Install]
 WantedBy=multi-user.target
 UNIT
+chmod 600 "/etc/systemd/system/$UNIT_NAME"
 
 echo "Enabling and starting $UNIT_NAME..."
 systemctl daemon-reload
