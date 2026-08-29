@@ -6,7 +6,22 @@ set -euo pipefail
 UNIT_NAME="dev-server-deck-agent.service"
 INSTALL_DIR="/opt/dev-server-deck-agent"
 BINARY_PATH="$INSTALL_DIR/DevServerDeckAgent"
-DOWNLOAD_URL="https://github.com/tzivaeris/DevServerDeckAgent-Releases/releases/latest/download/DevServerDeckAgent-linux-x64.zip"
+
+# aarch64/arm64 covers the free/cheap VPS tiers (Oracle Ampere, AWS
+# Graviton, a Raspberry Pi used as a home server) where this would
+# otherwise download an x86_64 binary that fails at the very last step
+# with a bare "Exec format error" and no useful diagnostic. Anything else
+# is genuinely unsupported - fail loudly here instead of downloading a
+# binary that can't run.
+case "$(uname -m)" in
+  x86_64|amd64) BINARY_ARCH="x64" ;;
+  aarch64|arm64) BINARY_ARCH="arm64" ;;
+  *)
+    echo "Unsupported CPU architecture: $(uname -m). This installer only supports x86_64 and arm64 (aarch64)." >&2
+    exit 1
+    ;;
+esac
+DOWNLOAD_URL="https://github.com/tzivaeris/DevServerDeckAgent-Releases/releases/latest/download/DevServerDeckAgent-linux-${BINARY_ARCH}.zip"
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "This installer must run as root (writes to /etc/systemd/system and $INSTALL_DIR)." >&2
@@ -20,9 +35,33 @@ if [ ! -d /run/systemd/system ]; then
   exit 1
 fi
 
+# Informational only, not a blocker - this installer has only actually been
+# verified on a non-SELinux (Debian) box. Fedora/RHEL/CentOS run SELinux
+# enforcing by default, and an enforcing policy could deny something here
+# (the polkit rule, the service's own file/process access) in a way that
+# looks like a permissions bug but isn't one. Surface this up front so a
+# denial doesn't get mistaken for something else.
+if command -v getenforce >/dev/null 2>&1 && [ "$(getenforce)" = "Enforcing" ]; then
+  echo "Note: SELinux is enforcing on this machine. This installer has not been verified against SELinux policy - if the service fails to start or behaves unexpectedly, check 'journalctl -u $UNIT_NAME' and 'ausearch -m avc -ts recent' for denials." >&2
+fi
+
+# Package manager varies by distro family - apt-get (Debian/Ubuntu) is not
+# the only one a systemd-based Linux might use. Only used for the missing-
+# command hint below; detection order doesn't matter since a real system
+# only ever has one of these.
+package_manager_hint() {
+  if command -v apt-get >/dev/null 2>&1; then echo "apt-get install -y $1"
+  elif command -v dnf >/dev/null 2>&1; then echo "dnf install -y $1"
+  elif command -v yum >/dev/null 2>&1; then echo "yum install -y $1"
+  elif command -v pacman >/dev/null 2>&1; then echo "pacman -S $1"
+  elif command -v zypper >/dev/null 2>&1; then echo "zypper install -y $1"
+  else echo "your system's package manager"
+  fi
+}
+
 for cmd in curl unzip; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
-    echo "$cmd is required but was not found. Install it first, e.g.: apt-get install -y $cmd" >&2
+    echo "$cmd is required but was not found. Install it first, e.g.: $(package_manager_hint "$cmd")" >&2
     exit 1
   fi
 done
@@ -88,11 +127,11 @@ echo "Downloading latest Linux build..."
 curl -fsSL "$DOWNLOAD_URL" -o "$TMP_ZIP"
 unzip -o -q "$TMP_ZIP" -d "$INSTALL_DIR"
 # The extracted binary's name is tied to the Local Agent repo's own
-# scripts/package.js (its `linux.binary` config value), which names the
-# built Linux binary "DevServerDeckAgent-linux-x64" rather than the stable
+# scripts/package.js (its `linux`/`linux-arm64` config values), which name
+# the built binary "DevServerDeckAgent-linux-<arch>" rather than the stable
 # "DevServerDeckAgent" name used below in ExecStart= and documentation.
 # Extract under that real name, then move it into the stable position.
-EXTRACTED_BINARY="$INSTALL_DIR/DevServerDeckAgent-linux-x64"
+EXTRACTED_BINARY="$INSTALL_DIR/DevServerDeckAgent-linux-${BINARY_ARCH}"
 if [ ! -f "$EXTRACTED_BINARY" ]; then
   echo "Expected binary not found at $EXTRACTED_BINARY after extracting the release zip." >&2
   echo "The release archive's internal layout may have changed - check its contents." >&2
