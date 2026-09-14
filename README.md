@@ -18,6 +18,18 @@ Expected release assets:
 
 Release ZIPs are attached to GitHub Releases and are intentionally not committed to this repository.
 
+## Recommended VPS specs
+
+If you're running the agent on a cloud VPS (not your own desktop), size it for at least:
+
+- **2 vCPU / 2 GB RAM** minimum, **4 GB RAM** recommended if you use Codex regularly or run more than one project's dev server on the same box. A 1 GB instance (e.g. AWS/GCP's smallest "micro" tiers) is too tight - it can get its own agent process killed outright by the kernel's out-of-memory killer during a real Codex turn, losing that turn's entire session with no way to recover it.
+- **Swap space** (1-2 GB), even on a box that otherwise meets the RAM recommendation above. Most stock VPS images ship with none by default; adding it costs nothing and turns a rare memory spike into "briefly slower" instead of a killed process. On Debian/Ubuntu:
+  ```bash
+  sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile
+  sudo mkswap /swapfile && sudo swapon /swapfile
+  echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+  ```
+
 ## Headless Linux (VPS) install
 
 For a bare Linux server with no desktop environment, a one-line installer sets up the agent as a systemd service that starts on boot and restarts automatically if it ever crashes:
