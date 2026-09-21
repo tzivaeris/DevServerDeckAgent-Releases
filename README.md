@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.14.3`
+Version: `2.14.4`
 
 Expected release assets:
 
@@ -43,4 +43,16 @@ Get an Agent Token from the dashboard: Account & Billing -> Agent Tokens. Requir
 Useful commands afterward:
 - `systemctl status dev-server-deck-agent` - check it's running
 - `journalctl -u dev-server-deck-agent -f` - follow its logs
+- `journalctl -u dev-server-deck-agent -n 200 --no-pager` - view recent history, e.g. right after an unexpected restart (systemd auto-restarts the agent if it crashes, and journald already captures whatever it printed before that happened)
 - `sudo systemctl restart dev-server-deck-agent` - restart it manually
+
+### Debug logging (as of `2.14.4`)
+
+For deeper diagnosis than journald's own history covers (e.g. it's rotated past the point you need, or you're not running under systemd at all), the agent can mirror all of its own console output to a local file:
+
+```bash
+DevServerDeckAgent --debug=on   # enable - takes effect on the already-running agent, no restart needed
+DevServerDeckAgent --debug=off  # disable
+```
+
+Writes to `debug.log` next to the agent's other local data (`%APPDATA%\dev-server-deck\` on Windows, `~/.dev-server-deck/` on Linux/macOS), rotating to `debug.log.old` past 20 MB so leaving it on indefinitely can't fill the disk. On desktop, the same toggle is also available as a "Debug Logging" checkbox in the tray icon's menu.
