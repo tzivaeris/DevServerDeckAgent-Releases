@@ -13,8 +13,8 @@ Expected release assets:
 - `DevServerDeckAgent-win-x64.zip`
 - `DevServerDeckAgent-linux-x64.zip`
 - `DevServerDeckAgent-linux-arm64.zip` (as of `2.12.1`)
-- `DevServerDeckAgent-macos-x64.zip`
-- `DevServerDeckAgent-macos-arm64.zip` (temporarily not published as of `2.1.4` - macOS arm64 builds are paused pending a code-signing fix; the last available arm64 build is attached to the `v2.0.6` release)
+
+**macOS support is coming soon.** There is no supported macOS download at the moment. Apple Silicon builds are paused pending a code-signing fix, and a macOS zip that may be attached to some releases is an unsupported preview.
 
 Release ZIPs are attached to GitHub Releases and are intentionally not committed to this repository.
 
@@ -55,4 +55,4 @@ DevServerDeckAgent --debug=on   # enable - takes effect on the already-running a
 DevServerDeckAgent --debug=off  # disable
 ```
 
-Writes to `debug.log` next to the agent's other local data (`%APPDATA%\dev-server-deck\` on Windows, `~/.dev-server-deck/` on Linux/macOS), rotating to `debug.log.old` past 20 MB so leaving it on indefinitely can't fill the disk. On desktop, the same toggle is also available as a "Debug Logging" checkbox in the tray icon's menu.
+Writes to `debug.log` next to the agent's other local data (`%APPDATA%\dev-server-deck\` on Windows, `~/.dev-server-deck/` on Linux), rotating to `debug.log.old` past 20 MB so leaving it on indefinitely can't fill the disk. On desktop, the same toggle is also available as a "Debug Logging" checkbox in the tray icon's menu.
