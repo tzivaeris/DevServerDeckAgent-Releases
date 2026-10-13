@@ -55,6 +55,26 @@ DevServerDeckAgent --debug=on   # enable - takes effect on the already-running a
 DevServerDeckAgent --debug=off  # disable
 ```
 
+<a id="power-actions"></a>
+## Power actions (restart/shutdown) (as of `2.15.31`)
+
+The dashboard's Machines tab has "Restart machine"/"Shut down machine" buttons per registered machine. The agent runs unprivileged on every platform (no Windows Service, no root) and does not attempt any elevation of its own - it just invokes the OS's own shutdown command and reports whatever it says.
+
+- **Windows:** works out of the box, no setup needed. "Shut down the system" is a right granted to the Users group by default in Windows' local security policy, so a normal (non-admin) process can restart/shut down the local machine without a UAC prompt.
+- **Linux:** restarting/powering off genuinely requires root, and the agent has no way to prompt for a sudo password unattended - clicking these buttons will fail with a permission error until you grant a narrowly-scoped, passwordless sudo rule for just the `shutdown` command (not full sudo access):
+
+  ```bash
+  sudo visudo -f /etc/sudoers.d/devserverdeck-agent
+  ```
+
+  Add this one line (replace `youruser` with whichever user account the agent actually runs as on that machine - `whoami` while it's running, or check the systemd unit's `User=` line if installed via the headless-VPS installer above):
+
+  ```
+  youruser ALL=(root) NOPASSWD: /usr/sbin/shutdown
+  ```
+
+  If `shutdown` isn't at `/usr/sbin/shutdown` on your distro, confirm the real path first with `which shutdown` and use that instead. Save and exit - no restart of the agent is needed, the next click will just work.
+
 ## Antivirus exclusion (recommended on every machine)
 
 Add an exclusion for the agent's data folder - `%APPDATA%\dev-server-deck\` on Windows, `~/.dev-server-deck/` on Linux/macOS - in Windows Defender (or whatever antivirus/EDR tool runs on a managed Linux server). Do this **before** it ever flags anything, not just after.
