@@ -75,6 +75,42 @@ The dashboard's Machines tab has "Restart machine"/"Shut down machine" buttons p
 
   If `shutdown` isn't at `/usr/sbin/shutdown` on your distro, confirm the real path first with `which shutdown` and use that instead. Save and exit - no restart of the agent is needed, the next click will just work.
 
+<a id="windows-service-mode"></a>
+## Windows Service mode (run the agent before login)
+
+By default the agent runs as a tray app in whichever user's desktop session is logged in - if nobody is signed in (e.g. right after a reboot), it isn't running at all. Windows Service mode is an opt-in, per-machine alternative: the agent runs as a Windows Service instead, starting at boot regardless of whether anyone ever logs in. It's fully reversible, and your Agent Token is preserved across the switch either way - neither direction requires re-pairing the machine.
+
+When someone is actively logged into the machine's console session, service mode behaves identically to tray mode: project commands run impersonating that logged-in user, with that user's own permissions and environment. Service mode only changes what happens when nobody is logged in - which is governed by a separate toggle, below.
+
+### Installing the service
+
+Both scripts ship inside the Windows release zip, next to `DevServerDeckAgent.exe` (same folder as `Apply-Update.ps1` and `Start-Silently.vbs`), and are code-signed like the rest of the agent's own self-update tooling. Neither can run un-elevated.
+
+1. Extract `DevServerDeckAgent-win-x64.zip` if you haven't already.
+2. Right-click `scripts\Install-Service.ps1` -> "Run with PowerShell" as Administrator (or open an elevated PowerShell prompt and run `.\Install-Service.ps1` from the `scripts` folder). This can't be done remotely from the dashboard - installing a Windows Service requires Administrator rights on that machine.
+
+`Install-Service.ps1` does the following, in order: disables the tray app's autostart and stops any running tray instance (tray mode and service mode are mutually exclusive - never both running at once); migrates the tray app's Agent Token into `%ProgramData%\dev-server-deck` (a service account can't reach the tray app's per-user `%APPDATA%` copy or the OS Credential Manager); registers the service via `sc.exe create DevServerDeckAgent binPath= "<path-to-exe> --service-mode" start= auto`; and starts it with `sc.exe start DevServerDeckAgent`.
+
+Confirm it's running:
+
+```powershell
+sc.exe query DevServerDeckAgent
+```
+
+A healthy install shows `STATE : 4  RUNNING`. If it shows `STOPPED` or the query fails with "the specified service does not exist", the install didn't complete - re-run `Install-Service.ps1` and check its console output (it also writes a JSON result to `%ProgramData%\dev-server-deck\install-result.json`) for the specific failure.
+
+### Switching back to tray mode
+
+Right-click `scripts\Uninstall-Service.ps1` -> "Run with PowerShell" as Administrator, from the same folder. It stops and deletes the `DevServerDeckAgent` service (idempotent - already-stopped/already-deleted is treated as success, not an error) and restores the tray app's autostart registry entry, pointing at `Start-Silently.vbs` next to the agent executable. It deliberately does **not** delete `%ProgramData%\dev-server-deck` - the migrated credential stays in place so switching back to tray mode needs zero re-pairing.
+
+Afterward, `sc.exe query DevServerDeckAgent` should fail with "the specified service does not exist" - that's the expected, successful outcome.
+
+### The SYSTEM toggle
+
+In the dashboard's account settings, service-mode machines expose a toggle: "Allow starting projects as SYSTEM when nobody's logged in." It's **off by default**.
+
+With it off, starting a project while nobody is logged into that machine's console is rejected outright - there's no user context to run the command under, and the agent never silently falls back to anything broader. Turning it on allows project commands to run under the SYSTEM account itself when there's no logged-in user to impersonate. This is a real tradeoff: SYSTEM has broader privileges on the machine than an ordinary user account, so enabling it trades some per-user isolation for the ability to start projects on a machine nobody is sitting at. Leave it off unless you specifically need that.
+
 ## Antivirus exclusion (recommended on every machine)
 
 Add an exclusion for the agent's data folder - `%APPDATA%\dev-server-deck\` on Windows, `~/.dev-server-deck/` on Linux/macOS - in Windows Defender (or whatever antivirus/EDR tool runs on a managed Linux server). Do this **before** it ever flags anything, not just after.
