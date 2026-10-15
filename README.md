@@ -87,7 +87,7 @@ When someone is actively logged into the machine's console session, service mode
 Both scripts ship inside the Windows release zip, next to `DevServerDeckAgent.exe` (same folder as `Apply-Update.ps1` and `Start-Silently.vbs`), and are code-signed like the rest of the agent's own self-update tooling. Neither can run un-elevated.
 
 1. Extract `DevServerDeckAgent-win-x64.zip` if you haven't already.
-2. Right-click `scripts\Install-Service.ps1` -> "Run with PowerShell" as Administrator (or open an elevated PowerShell prompt and run `.\Install-Service.ps1` from the `scripts` folder). This can't be done remotely from the dashboard - installing a Windows Service requires Administrator rights on that machine.
+2. Right-click `scripts\Install-Service.ps1` -> "Run with PowerShell" as Administrator (or open an elevated PowerShell prompt and run `.\Install-Service.ps1` from the extracted folder). This can't be done remotely from the dashboard - installing a Windows Service requires Administrator rights on that machine.
 
 `Install-Service.ps1` does the following, in order: disables the tray app's autostart and stops any running tray instance (tray mode and service mode are mutually exclusive - never both running at once); migrates the tray app's Agent Token into `%ProgramData%\dev-server-deck` (a service account can't reach the tray app's per-user `%APPDATA%` copy or the OS Credential Manager); registers the service via `sc.exe create DevServerDeckAgent binPath= "<path-to-exe> --service-mode" start= auto`; and starts it with `sc.exe start DevServerDeckAgent`.
 
