@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.39",
+      "date": "2026-10-21",
+      "notes": [
+        "A model test (the \"hi\" sent to each model on the AI providers screen) is no longer treated as a finished task, so it no longer makes the project show \"finished\" or trigger a notification."
+      ]
+    },
+    {
       "version": "2.15.38",
       "date": "2026-10-21",
       "notes": [
