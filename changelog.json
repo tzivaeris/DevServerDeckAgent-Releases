@@ -1,0 +1,99 @@
+{
+  "entries": [
+    {
+      "version": "2.15.38",
+      "date": "2026-10-21",
+      "notes": [
+        "When thinking is switched off in Studio, local Ollama models that can think no longer think anyway. This avoids long hidden reasoning and replies that were cut off."
+      ]
+    },
+    {
+      "version": "2.15.37",
+      "date": "2026-10-21",
+      "notes": [
+        "Agent mode can now read big files page by page (start_line / end_line), so a model is no longer stuck on the first 4,000 characters of a large file.",
+        "The model is told which operating system the machine runs, so it stops guessing from error messages."
+      ]
+    },
+    {
+      "version": "2.15.36",
+      "date": "2026-10-20",
+      "notes": [
+        "Reading PDF files in Studio now works in the packaged Agent on Linux and Windows."
+      ]
+    },
+    {
+      "version": "2.15.35",
+      "date": "2026-10-17",
+      "notes": [
+        "Local Ollama is no longer hidden from Studio when no custom address is saved."
+      ]
+    },
+    {
+      "version": "2.15.34",
+      "date": "2026-10-13",
+      "notes": [
+        "A single bad CPU or memory sample can no longer spike the metrics chart."
+      ]
+    },
+    {
+      "version": "2.15.33",
+      "date": "2026-10-13",
+      "notes": [
+        "The owner can set a custom address for local Ollama in Studio.",
+        "When a Linux restart or shutdown fails, the message points to the in-app setup guide."
+      ]
+    },
+    {
+      "version": "2.15.32",
+      "date": "2026-10-13",
+      "notes": [
+        "A failed Linux restart or shutdown now points to the setup guide."
+      ]
+    },
+    {
+      "version": "2.15.31",
+      "date": "2026-10-13",
+      "notes": [
+        "New restart and shutdown actions for the machine itself.",
+        "Word documents are recognised as a previewable document type in Studio."
+      ]
+    },
+    {
+      "version": "2.15.30",
+      "date": "2026-10-12",
+      "notes": [
+        "With debug logging on, the Agent records a periodic memory snapshot to help find leaks."
+      ]
+    },
+    {
+      "version": "2.15.28",
+      "date": "2026-10-09",
+      "notes": [
+        "Windows self-update is more reliable: the update helper is started through cmd so it is not stopped together with the Agent."
+      ]
+    },
+    {
+      "version": "2.15.27",
+      "date": "2026-10-09",
+      "notes": [
+        "The Agent never recursively watches an external project folder or a bare drive root."
+      ]
+    },
+    {
+      "version": "2.15.26",
+      "date": "2026-10-09",
+      "notes": [
+        "Studio chat history backups: an empty snapshot can no longer overwrite a good one, restore uses the new file names, and backups include the key that protects the history.",
+        "Self-update now uses a signed PowerShell helper on Windows and a fixed shell helper on Linux and macOS."
+      ]
+    },
+    {
+      "version": "2.15.25",
+      "date": "2026-10-06",
+      "notes": [
+        "Studio can show a short \"what it is doing now\" line for a running turn without opening the chat."
+      ]
+    }
+  ]
+}
