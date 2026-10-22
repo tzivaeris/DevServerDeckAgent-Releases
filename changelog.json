@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.41",
+      "date": "2026-10-22",
+      "notes": [
+        "New session with a handoff for long Studio chats (web and Android app): the new session starts with automatic notes about the goal, decisions, files and next step, and the old chat stays in History.",
+        "For Codex, starting a new session now also starts a fresh Codex thread, so a very long Codex conversation no longer carries on in the background."
+      ]
+    },
+    {
       "version": "2.15.40",
       "date": "2026-10-22",
       "notes": [
