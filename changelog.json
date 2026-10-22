@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.40",
+      "date": "2026-10-22",
+      "notes": [
+        "You can now change or disconnect a project's GitHub repository from the project settings (web and Android app). Disconnecting only removes the link: your files, commits and branches are not touched."
+      ]
+    },
+    {
       "version": "2.15.39",
       "date": "2026-10-21",
       "notes": [
