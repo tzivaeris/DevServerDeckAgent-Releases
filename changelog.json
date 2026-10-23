@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.43",
+      "date": "2026-10-23",
+      "notes": [
+        "Updating the Agent no longer leaves your projects half-working: before the update the Agent stops the projects it started (and their database, if it is set to stop with the project), and starts them again right after the update. Before this, a project could look Running after an update but stop responding until you pressed Stop and Start."
+      ]
+    },
+    {
       "version": "2.15.42",
       "date": "2026-10-23",
       "notes": [
