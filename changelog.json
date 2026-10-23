@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.42",
+      "date": "2026-10-23",
+      "notes": [
+        "A running Studio task can now be watched from more than one device at once (for example your phone and a browser): every step, question and the final reply appear on all of them.",
+        "Studio edits that you review before saving now go through the Agent's change approval from the Android app too, so the Agent keeps an undo snapshot and a history entry for them."
+      ]
+    },
+    {
       "version": "2.15.41",
       "date": "2026-10-22",
       "notes": [
