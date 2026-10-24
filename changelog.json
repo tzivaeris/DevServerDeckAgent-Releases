@@ -1,14 +1,6 @@
 {
   "entries": [
     {
-      "version": "2.15.46",
-      "date": "2026-10-24",
-      "notes": [
-        "Crash history: the Agent now records every time a project's process ends without being stopped (when, exit code, how long it had been running, whether it was started again, and the last lines of its output). See it from the project's menu in the web dashboard and in the Android app.",
-        "Docker: a new panel in the web dashboard and the Android app lists the containers on the machine, lets you start, stop or restart one, and shows its latest output. Only the machine owner can use it."
-      ]
-    },
-    {
       "version": "2.15.45",
       "date": "2026-10-24",
       "notes": [
