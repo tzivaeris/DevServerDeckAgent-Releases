@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.44",
+      "date": "2026-10-24",
+      "notes": [
+        "Studio now stays in step across your devices: when you answer a question (approve a command, a plan or a Codex approval) on one device, the other devices drop it too, and a task started on one device shows up as running on the others and finishes there as well.",
+        "Updating the Agent no longer closes your public tunnels for good: the tunnels that were open are opened again after the update (a quick tunnel gets a new public address from its provider)."
+      ]
+    },
+    {
       "version": "2.15.43",
       "date": "2026-10-23",
       "notes": [
