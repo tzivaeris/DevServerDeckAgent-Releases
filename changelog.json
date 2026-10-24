@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.45",
+      "date": "2026-10-24",
+      "notes": [
+        "Updating the Agent now stops and starts again only the projects that have a database attached (those are the ones that needed it). Projects without a database keep running through the update."
+      ]
+    },
+    {
       "version": "2.15.44",
       "date": "2026-10-24",
       "notes": [
