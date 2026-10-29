@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.50",
+      "date": "2026-10-29",
+      "notes": [
+        "Initialize and push now has a review step: \"Review files\" lists what would be uploaded (your .gitignore is honoured) with the file count and total size, and flags large files, likely secrets such as keystores and keys, log and crash files, and build or cache folders. You tick what to leave out and choose whether to add it to the project's .gitignore or exclude it on this machine only. Nothing is committed until you confirm. Available in the web dashboard and the Android app."
+      ]
+    },
+    {
       "version": "2.15.49",
       "date": "2026-10-29",
       "notes": [
