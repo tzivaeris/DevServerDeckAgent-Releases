@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.49",
+      "date": "2026-10-29",
+      "notes": [
+        "Initialize and push, Commit and downloading a repository no longer fail on a big project: git add, commit and download are now allowed to run for minutes instead of being stopped after 4 seconds. The stopped command used to leave a stale lock file in the project's .git folder and every later attempt failed; a lock that is minutes old is now cleared automatically.",
+        "When a git step fails, the message now shows Git's real error instead of hundreds of line-ending warnings."
+      ]
+    },
+    {
       "version": "2.15.48",
       "date": "2026-10-29",
       "notes": [
