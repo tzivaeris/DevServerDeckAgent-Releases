@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.51",
+      "date": "2026-10-29",
+      "notes": [
+        "Connecting a project to an empty GitHub repository now offers Initialize and push even when an earlier failed attempt left an empty .git folder behind, instead of reporting a conflict."
+      ]
+    },
+    {
       "version": "2.15.50",
       "date": "2026-10-29",
       "notes": [
