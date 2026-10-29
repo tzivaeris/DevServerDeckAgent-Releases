@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.47",
+      "date": "2026-10-29",
+      "notes": [
+        "Projects without a folder: a project can now be created with no folder (tick \"This project has no folder\"). It can only be started, stopped and tunnelled, which suits something that already runs elsewhere, such as a Docker Desktop container. Features that need a folder (Git, .env, scripts, Studio) are switched off for it.",
+        "Clearer messages when inspecting a repository: a non-empty folder, a git folder with no GitHub connection, and a GitHub access refusal each now explain what to do next."
+      ]
+    },
+    {
       "version": "2.15.46",
       "date": "2026-10-24",
       "notes": [
