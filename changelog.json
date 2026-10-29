@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.48",
+      "date": "2026-10-29",
+      "notes": [
+        "Initialize and push: the check for large files now counts only the files that would really be uploaded, so a project's own .gitignore is honoured. A big build output inside an ignored folder (for example app/build/) no longer blocks initializing a repository."
+      ]
+    },
+    {
       "version": "2.15.47",
       "date": "2026-10-29",
       "notes": [
