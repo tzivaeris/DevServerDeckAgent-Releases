@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.52",
+      "date": "2026-10-30",
+      "notes": [
+        "New project setting \"Start when the Agent starts\" (Configure Project, web and Android): the Agent starts those projects a few seconds after it launches, one at a time, for example after a PC restart. On Windows the Agent itself must start with Windows (tray menu) and you must be signed in; a Linux server set up with the installer starts it on boot."
+      ]
+    },
+    {
       "version": "2.15.51",
       "date": "2026-10-29",
       "notes": [
