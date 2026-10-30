@@ -18,6 +18,14 @@ Expected release assets:
 
 Release ZIPs are attached to GitHub Releases and are intentionally not committed to this repository.
 
+## Start projects when the Agent starts (as of `2.15.52`)
+
+Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Initialize and push review (as of `2.15.50`)
+
+Connecting a project to an empty GitHub repository now asks you to review the files first: what would be uploaded (your `.gitignore` is honoured), the file count and total size, and flags for large files, likely secrets, log files and build or cache folders. Choose what to leave out through the project's `.gitignore` or on this machine only. Nothing is committed until you confirm.
+
 ## Recommended VPS specs
 
 If you're running the agent on a cloud VPS (not your own desktop), size it for at least:
