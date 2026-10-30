@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.53",
+      "date": "2026-10-30",
+      "notes": [
+        "New account setting \"Reopen public tunnels when an Agent starts\" (Account, Machines on the web; Account, Agents in the Android app), off by default. When it is on, the tunnels that were open come back after a restart of the PC or the Agent, once their projects are running again (with a new public address). A tunnel for a project that is not running is skipped."
+      ]
+    },
+    {
       "version": "2.15.52",
       "date": "2026-10-30",
       "notes": [

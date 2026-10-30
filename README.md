@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.52`
+Version: `2.15.53`
 
 Expected release assets:
 
@@ -21,6 +21,10 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Reopen public tunnels when the Agent starts (as of `2.15.53`)
+
+Account, Machines (web) or Account, Agents (Android) has "Reopen public tunnels when an Agent starts". It is off by default, because an open tunnel makes a project reachable from the internet. When it is on, the Agent remembers which tunnels are open and, after a restart of the PC or the Agent, opens them again once their projects are running (use "Start this project when the Agent starts" so the projects come back too). A tunnel for a project that is not running is skipped, and each tunnel gets a new public address. The Agent only does this once the Cloud Relay has confirmed your choice.
 
 ## Initialize and push review (as of `2.15.50`)
 
