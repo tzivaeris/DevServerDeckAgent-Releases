@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.55",
+      "date": "2026-10-31",
+      "notes": [
+        "Fixes a leak that could pile up thousands of stuck wsl.exe processes on a PC with WSL projects when WSL stopped answering, which slowed the whole PC and made the project list take 10 to 30 seconds. The Agent now ends those commands itself and pauses WSL checks for a couple of minutes after one fails.",
+        "A Git push started from the Android app is no longer cut off after 4 seconds with an empty error; it can run for up to 10 minutes and reports the real reason if it fails.",
+        "The project list loads faster: the port scan no longer lists every process on the PC each time."
+      ]
+    },
+    {
       "version": "2.15.54",
       "date": "2026-10-31",
       "notes": [
