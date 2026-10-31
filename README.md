@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.56`
+Version: `2.15.57`
 
 Expected release assets:
 
@@ -21,6 +21,27 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Remote access switches: what your PC accepts (as of `2.15.57`)
+
+Only Studio is end-to-end encrypted. Everything else you do remotely passes through our relay in readable form (over TLS), so from `2.15.57` the Agent itself refuses four kinds of remote request until someone at that PC turns them on. All four are OFF after updating:
+
+| Switch | What it allows |
+| --- | --- |
+| `files` | Browse and download files outside your projects, and the folder picker in Add Project |
+| `commands` | Run scripts and the terminal, git commands, create or edit a project, custom tasks, skills, auto-approval |
+| `secrets` | Read or change `.env`, backups, project structure download, AI credentials, and where Git sends the source |
+| `machine` | Restart, shut down, kill a process, Docker actions |
+
+Starting and stopping projects you already set up, status, logs and tunnels need no switch.
+
+- **Windows / macOS:** right-click the Agent tray icon and tick the switch (for example **Allow remote commands**).
+- **Headless / VPS / Windows service:** run the Agent once with `--allow=commands:on` (also `files`, `secrets`, `machine`; `:off` to turn one back off). `--allow-status` lists them. `--file-browsing=on|off` from `2.15.54` still works and means `files`.
+- The switches are signed with a key in the system credential store. A file that was edited or copied from another PC reads as everything off, and nothing from the web, the app or our servers can change one.
+- Account, Machines (web) and Account, Agents (app) show each machine's switches and what was refused. A refusal says which switch is off and where to turn it on.
+- `--studio-fingerprint` prints the short fingerprint of the Studio identity key. Compare it with the one shown in Account: the browser and the app now keep their own copy of that key, because the cloud's copy is written by the relay.
+
+If you used scripts, the terminal, `.env` or project editing from the web or the phone, tick the matching switch on that PC after updating.
 
 ## Security: update to 2.15.56 or later (as of `2.15.56`)
 

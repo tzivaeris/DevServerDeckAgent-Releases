@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.57",
+      "date": "2026-10-31",
+      "notes": [
+        "Remote access switches. Only Studio is end-to-end encrypted; everything else passes through the relay in readable form, so your PC now decides what it accepts. Four kinds of remote request are refused until someone at that PC turns them on, and all four are OFF after this update: files (browse and download outside projects), commands (scripts, terminal, git commands, editing what a project runs), secrets (.env, backups, source, where Git sends it) and machine (restart, shut down, kill a process). Starting and stopping your projects, status and logs need no switch.",
+        "Turn them on in the Agent's tray menu, or on a headless Agent with --allow=commands:on (also files, secrets, machine; --allow-status lists them). They are signed with a key in the system credential store and cannot be changed from the web, the app or our servers. After updating, tick the switch you need on that PC if you use scripts, the terminal, .env or project editing remotely.",
+        "New: --studio-fingerprint prints the short fingerprint of this PC's Studio identity key, to compare with the one shown in Account."
+      ]
+    },
+    {
       "version": "2.15.56",
       "date": "2026-10-31",
       "notes": [
