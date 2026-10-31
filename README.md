@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.55`
+Version: `2.15.56`
 
 Expected release assets:
 
@@ -21,6 +21,10 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Security: update to 2.15.56 or later (as of `2.15.56`)
+
+Versions before `2.15.56` kept a small local server on `127.0.0.1:4020` that answered any program or web page running on the same PC, with no secret. A web page open in your browser could have reached it (a WebSocket from a page is not stopped by the browser's usual cross-site rules), including the part that types into a project's terminal. We found this ourselves by reading the code; we have no sign that anyone used it. From `2.15.56` the local server refuses every request that does not carry a secret the Agent makes when it starts (only the Agent's own relay bridge has it), and refuses requests whose Host name is not the loopback name (the DNS-rebinding trick). Please update every machine.
 
 ## Remote file browsing is off until you turn it on (as of `2.15.54`)
 

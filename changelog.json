@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.56",
+      "date": "2026-10-31",
+      "notes": [
+        "Security fix, please update every machine. The Agent's small local server (127.0.0.1:4020) used to answer any program or web page on the same PC without a secret, including a WebSocket that can type into a project's terminal. It now refuses everything that does not carry a secret made when the Agent starts, and refuses requests with a non-loopback Host name. We found this ourselves and have no sign anyone used it."
+      ]
+    },
+    {
       "version": "2.15.55",
       "date": "2026-10-31",
       "notes": [
