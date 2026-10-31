@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.53`
+Version: `2.15.54`
 
 Expected release assets:
 
@@ -21,6 +21,15 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Remote file browsing is off until you turn it on (as of `2.15.54`)
+
+Browsing and downloading files on this PC outside your projects (the Files tab, and the folder picker in Add Project) is switched off by default, as an extra measure on top of 2FA. It is a switch on the machine itself, so a stolen sign-in cannot read your files unless someone at the PC turned it on. Project files, the Studio editor and the project explorer are not affected.
+
+- **Windows:** right-click the Agent tray icon and tick **Allow remote file browsing**.
+- **Headless / VPS / Windows service:** run the Agent once with `--file-browsing=on` (or `--file-browsing=off`). The running Agent picks the change up at once, no restart needed.
+
+While it is off, the web and the app show "File browsing is turned off on this machine" with these instructions. You can still type a project path by hand when adding a project.
 
 ## Reopen public tunnels when the Agent starts (as of `2.15.53`)
 

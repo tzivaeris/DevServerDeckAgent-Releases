@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.54",
+      "date": "2026-10-31",
+      "notes": [
+        "Remote file browsing is now off by default. Browsing and downloading files on the PC outside your projects (the Files tab and the folder picker in Add Project) works only after you turn on \"Allow remote file browsing\" in the Agent's tray menu on that PC, or run the Agent once with --file-browsing=on (VPS or Windows service). Project files and Studio are not affected. After updating, turn it on again if you use the Files tab or the folder picker."
+      ]
+    },
+    {
       "version": "2.15.53",
       "date": "2026-10-30",
       "notes": [
