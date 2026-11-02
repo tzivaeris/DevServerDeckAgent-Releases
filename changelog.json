@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "2.15.60",
+      "date": "2026-11-02",
+      "notes": [
+        "Updates are verified before they are installed: every release carries a signed manifest (update-manifest.json + .sig, Ed25519). The Agent installs an update only if the signature is valid, the release is newer than the running version, and the download matches the signed size and SHA-256; otherwise nothing is extracted or run and the dashboard says why.",
+        "The update to 2.15.60 is installed by an older Agent that cannot check it, so it arrives unverified (check it by hand with SHA256SUMS.txt if you want to be sure). Every update from 2.15.60 on is verified.",
+        "Linux/macOS: files created in the Agent's data folder (Studio history, the update helper's result file) are made owner-only within a fraction of a second instead of waiting for the 6-hourly pass. The Agent does not set a global umask.",
+        "The Windows 'mapped drive / network share' backup-folder check now has tests; the Linux/macOS self-update helper writes its result and log owner-only."
+      ]
+    },
+    {
       "version": "2.15.59",
       "date": "2026-11-02",
       "notes": [

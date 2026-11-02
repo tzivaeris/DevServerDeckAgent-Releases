@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.59`
+Version: `2.15.60`
 
 Expected release assets:
 
@@ -21,6 +21,20 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Signed updates (as of `2.15.60`)
+
+From `2.15.60` the Agent verifies every update before it installs it. Each release has two extra files, `update-manifest.json` (the version, and the SHA-256 and size of every zip) and `update-manifest.json.sig` (an Ed25519 signature over that manifest). The Agent has the matching public key built in and installs an update only when:
+
+1. the signature is valid for a key it trusts,
+2. the release is newer than the version running (an older, genuinely signed release cannot be used to downgrade it), and
+3. the zip it downloaded matches the signed size and SHA-256.
+
+If a check fails, nothing is extracted, copied or run; the dashboard shows the reason (for example "The downloaded file does not match the signed checksum"). Someone who controlled the download address could withhold an update but not make an Agent install their own file.
+
+**Which updates are verified:** an Agent older than `2.15.60` does not check updates, so the update **to** `2.15.60` arrives unverified (installed by that older Agent). To be certain of that step, download `2.15.60` from this page and check it as described below. From `2.15.60` on, every update is verified. Account (web and app) shows whether a machine's Agent verifies updates.
+
+`AGENT_DOWNLOAD_URL` (a developer override of the download address) skips verification and the Agent logs a warning when it is set. Nothing remote can set it.
 
 ## Checking a download (as of `2.15.58`)
 
@@ -37,6 +51,7 @@ A checksum published beside the file proves the download arrived intact; it does
 - **For a set time:** `--allow=files:on --for=30m` (also `2h`, `1d`; 1 minute to 7 days). The end time is stored inside the signed switch file and the Agent checks it on every request, so the switch is already off if the Agent was stopped when the time passed. `--allow-status` and Account show "until ...". The tray menu shows it too.
 - **Custom backup folder:** a backup folder sent from the web is checked on its real location (links are followed). It must be a full local path, not the Agent's data folder, not inside any project folder, and not on a network file system (NFS, SMB, sshfs and similar are detected on Linux and macOS; a mapped drive on Windows). It is accepted only if the `files` switch is on or it is the folder you set at the PC with `--backup-folder=<path>` (`=off` clears it). Without a path, backups go to `~/DevServerDeckBackups` as before. If you used a custom backup folder from the web, set it with `--backup-folder` after updating, or the scheduled backup is refused and Account says why.
 - **Data folder (Linux, macOS):** every file in the Agent's data folder becomes owner-only (`0600`, folders `0700`) and moves to your own group instead of a shared one such as `docker`. This runs when the Agent starts and every 6 hours. Items owned by another user are left alone and logged.
+- **New files in the data folder (Linux, macOS, as of `2.15.60`):** a file the Agent or the update helper creates there is made owner-only within a fraction of a second (the folder is `0700`, so nothing is readable in between). The Agent does not set a global `umask`, because every project it starts would inherit it.
 - **Metrics history:** `metrics-history.json` keeps only the last 24 hours, drops projects that no longer exist, and is capped per project.
 - **Dashboard banner:** when the selected PC has refused remote requests because a switch is off, the dashboard shows which switches and links to Account.
 
