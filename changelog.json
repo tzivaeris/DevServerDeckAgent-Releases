@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "2.15.58",
+      "date": "2026-11-02",
+      "notes": [
+        "Main projects folder: name one folder on the PC (tray menu, or --projects-folder=<path>) and Add Project can browse and create folders inside it even while the files switch is off. Downloads and browsing anywhere else still need files.",
+        "Scheduled backups to a folder on the PC work again without the secrets switch (they were refused since 2.15.57). A backup path sent from the web must be a full local path, never a network share. The cloud copy of your project list still needs the secrets switch; Account now says so when cloud backup is on and the switch is off.",
+        "The Agent no longer loads a .env from the folder it was started in (it could put another project's variables into every project it started); Agent settings go in a .env inside its data folder. On Linux and macOS the data folder is now readable only by your user.",
+        "projects.json now keeps one dated copy a day for a week. The update message no longer tells you to download the Agent by hand."
+      ]
+    },
+    {
       "version": "2.15.57",
       "date": "2026-10-31",
       "notes": [

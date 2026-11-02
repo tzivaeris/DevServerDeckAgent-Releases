@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.57`
+Version: `2.15.58`
 
 Expected release assets:
 
@@ -21,6 +21,51 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Main projects folder (as of `2.15.58`)
+
+Add Project needs to browse folders and create a new one, which the `files` switch used to block. Instead of turning `files` on, name one folder on the PC where your projects live:
+
+- **Windows / macOS:** tray menu, **Main projects folder: not set (click to choose)**. **Clear main projects folder** removes it.
+- **Anywhere, headless too:** `--projects-folder=D:\Projects` (or `--projects-folder=off`). `--allow-status` shows it.
+
+Remote clients can then browse and create folders inside that folder, and only there, even while `files` is off. Downloading files and browsing elsewhere still need `files`. The setting is part of the signed switch file, links inside the folder that point elsewhere do not open the outside, and it cannot be a whole drive, a network folder or the Agent's own data folder.
+
+## Project settings reference
+
+A project's settings live in `projects.json` in the data folder (`%APPDATA%\dev-server-deck` on Windows, `~/.dev-server-deck` elsewhere) and are edited in Add Project / Configure Project.
+
+| Setting | Meaning |
+| --- | --- |
+| `command` | What Start runs in the project folder: one program with arguments, e.g. `npm run dev -- -p {PORT}`. Empty for a repository-only project. |
+| `port`, `{PORT}` | `{PORT}` inside `command` is replaced by `port` when the project starts. |
+| `entryFile` | Added to the end of the command (`node` + `server.js`); not added twice if the command already contains it. |
+| `database` | `type`, `port`, `startCommand`, `stopCommand`, `autoStart` (start it before the project), `autoStop` (stop it after). `platformOverrides` gives other commands per `win32`, `linux`, `darwin`; a platform with no entry runs nothing. |
+| `group`, `links` | The workspace the project is listed under, and shortcut links on its card. |
+| `autoRestartOnCrash` | Start the project again when it exits unexpectedly. |
+| `startWithAgent` | Start it whenever the Agent starts (after a reboot or an update). |
+| `useExternalIp`, `externalIp` | Open links with the machine's external address instead of localhost. |
+| `githubReleasesEnabled` | Show the Release tab in Git. |
+| `noFolder` | A project with no folder on the machine (start, stop and tunnel only). |
+| `shutdownWslOnStop` | Shut WSL down when a WSL project stops. |
+| Allowed commands (Studio, Agent mode) | Commands the AI may run in that project without asking each time. An entry must match the command exactly and be one program with arguments (no pipes, redirects or `&&`). Up to 50 per project. |
+
+The Agent keeps the last good copy as `projects.json.bak`, and from `2.15.58` one dated copy a day for a week (`projects.json.bak-YYYYMMDD`).
+
+## Agent command-line flags
+
+Run the Agent once with a flag; it does its job and exits, and a running Agent picks the change up by itself.
+
+| Flag | What it does |
+| --- | --- |
+| `--allow=files\|commands\|secrets\|machine:on\|off`, `--allow-status` | The remote-access switches. |
+| `--projects-folder=<path>` or `=off` | The main projects folder. |
+| `--studio-fingerprint` | The short fingerprint of the Studio identity key. |
+| `--debug=on\|off` | Write full console output to `debug.log` in the data folder. |
+
+Settings for the Agent itself go in a `.env` file inside the data folder; from `2.15.58` a `.env` in the folder you start the Agent from is ignored. On Linux and macOS the data folder is readable only by your user.
+
+The security model is explained at https://devserverdeck.com/security.
 
 ## Remote access switches: what your PC accepts (as of `2.15.57`)
 
