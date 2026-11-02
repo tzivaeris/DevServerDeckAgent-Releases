@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "2.15.61",
+      "date": "2026-11-02",
+      "notes": [
+        "Updates can no longer be redirected or unverified: the AGENT_DOWNLOAD_URL developer override is removed, and no setting, environment variable or flag changes where updates come from or turns the signature check off.",
+        "The Agent now creates its own files in the data folder (agent config with the token, project list, Studio history, sessions, usage, crash history, tunnels, logs, backups, the downloaded update) owner-only (0600) from the first byte; the watcher stays as the safety net.",
+        "This is the first update an Agent verifies: an Agent on 2.15.60 checks the signature, version and checksum before installing it (look for 'verified (signed manifest, SHA-256 matches)' in the Agent log).",
+        "Release process: the full test suite must pass with no unexpected skipped tests before a release can be published."
+      ]
+    },
+    {
       "version": "2.15.60",
       "date": "2026-11-02",
       "notes": [

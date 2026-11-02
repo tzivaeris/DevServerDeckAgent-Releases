@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.60`
+Version: `2.15.61`
 
 Expected release assets:
 
@@ -34,7 +34,7 @@ If a check fails, nothing is extracted, copied or run; the dashboard shows the r
 
 **Which updates are verified:** an Agent older than `2.15.60` does not check updates, so the update **to** `2.15.60` arrives unverified (installed by that older Agent). To be certain of that step, download `2.15.60` from this page and check it as described below. From `2.15.60` on, every update is verified. Account (web and app) shows whether a machine's Agent verifies updates.
 
-`AGENT_DOWNLOAD_URL` (a developer override of the download address) skips verification and the Agent logs a warning when it is set. Nothing remote can set it.
+There is no setting, environment variable or flag that changes where the Agent downloads updates from or turns verification off. Agent `2.15.60` still had a developer override (`AGENT_DOWNLOAD_URL`) that skipped verification and logged a warning; from `2.15.61` a packaged Agent ignores it completely. Nothing remote could set it in either version, but code running as you on the PC could have, so update to `2.15.61`.
 
 ## Checking a download (as of `2.15.58`)
 
@@ -51,7 +51,7 @@ A checksum published beside the file proves the download arrived intact; it does
 - **For a set time:** `--allow=files:on --for=30m` (also `2h`, `1d`; 1 minute to 7 days). The end time is stored inside the signed switch file and the Agent checks it on every request, so the switch is already off if the Agent was stopped when the time passed. `--allow-status` and Account show "until ...". The tray menu shows it too.
 - **Custom backup folder:** a backup folder sent from the web is checked on its real location (links are followed). It must be a full local path, not the Agent's data folder, not inside any project folder, and not on a network file system (NFS, SMB, sshfs and similar are detected on Linux and macOS; a mapped drive on Windows). It is accepted only if the `files` switch is on or it is the folder you set at the PC with `--backup-folder=<path>` (`=off` clears it). Without a path, backups go to `~/DevServerDeckBackups` as before. If you used a custom backup folder from the web, set it with `--backup-folder` after updating, or the scheduled backup is refused and Account says why.
 - **Data folder (Linux, macOS):** every file in the Agent's data folder becomes owner-only (`0600`, folders `0700`) and moves to your own group instead of a shared one such as `docker`. This runs when the Agent starts and every 6 hours. Items owned by another user are left alone and logged.
-- **New files in the data folder (Linux, macOS, as of `2.15.60`):** a file the Agent or the update helper creates there is made owner-only within a fraction of a second (the folder is `0700`, so nothing is readable in between). The Agent does not set a global `umask`, because every project it starts would inherit it.
+- **New files in the data folder (Linux, macOS, as of `2.15.60`):** a file the Agent or the update helper creates there is made owner-only within a fraction of a second (the folder is `0700`, so nothing is readable in between). From `2.15.61` the Agent also creates its own files (agent config with the token, project list, Studio history, logs, backups) as `0600` from the first byte; the watcher is only the safety net. The Agent does not set a global `umask`, because every project it starts would inherit it.
 - **Metrics history:** `metrics-history.json` keeps only the last 24 hours, drops projects that no longer exist, and is capped per project.
 - **Dashboard banner:** when the selected PC has refused remote requests because a switch is off, the dashboard shows which switches and links to Account.
 
