@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.58`
+Version: `2.15.59`
 
 Expected release assets:
 
@@ -21,6 +21,24 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Checking a download (as of `2.15.58`)
+
+Every release has a `SHA256SUMS.txt` next to the zips. Put it in the same folder as the zip you downloaded and run:
+
+- **Linux:** `sha256sum -c SHA256SUMS.txt --ignore-missing`
+- **macOS:** `shasum -a 256 -c SHA256SUMS.txt` (it reports the zips you did not download as missing; ignore those)
+- **Windows (PowerShell):** `(Get-FileHash .\DevServerDeckAgent-win-x64.zip -Algorithm SHA256).Hash` and compare it with the line for that file.
+
+A checksum published beside the file proves the download arrived intact; it does not prove who made it. The Agent does not check updates against a built-in signing key yet; that is planned for the release after `2.15.59`. The release that first carries the key is installed by an Agent that cannot check it, so it arrives unverified; updates installed by an Agent that already has the key are verified. This page will say the exact versions when it ships.
+
+## Time-limited switches, backup folder, private data folder (as of `2.15.59`)
+
+- **For a set time:** `--allow=files:on --for=30m` (also `2h`, `1d`; 1 minute to 7 days). The end time is stored inside the signed switch file and the Agent checks it on every request, so the switch is already off if the Agent was stopped when the time passed. `--allow-status` and Account show "until ...". The tray menu shows it too.
+- **Custom backup folder:** a backup folder sent from the web is checked on its real location (links are followed). It must be a full local path, not the Agent's data folder, not inside any project folder, and not on a network file system (NFS, SMB, sshfs and similar are detected on Linux and macOS; a mapped drive on Windows). It is accepted only if the `files` switch is on or it is the folder you set at the PC with `--backup-folder=<path>` (`=off` clears it). Without a path, backups go to `~/DevServerDeckBackups` as before. If you used a custom backup folder from the web, set it with `--backup-folder` after updating, or the scheduled backup is refused and Account says why.
+- **Data folder (Linux, macOS):** every file in the Agent's data folder becomes owner-only (`0600`, folders `0700`) and moves to your own group instead of a shared one such as `docker`. This runs when the Agent starts and every 6 hours. Items owned by another user are left alone and logged.
+- **Metrics history:** `metrics-history.json` keeps only the last 24 hours, drops projects that no longer exist, and is capped per project.
+- **Dashboard banner:** when the selected PC has refused remote requests because a switch is off, the dashboard shows which switches and links to Account.
 
 ## Main projects folder (as of `2.15.58`)
 
@@ -59,6 +77,8 @@ Run the Agent once with a flag; it does its job and exits, and a running Agent p
 | Flag | What it does |
 | --- | --- |
 | `--allow=files\|commands\|secrets\|machine:on\|off`, `--allow-status` | The remote-access switches. |
+| `--allow=<class>:on --for=30m` | The switch turns itself off after that time (`m`, `h` or `d`). |
+| `--backup-folder=<path>` or `=off` | The one custom folder the web may send backups to. |
 | `--projects-folder=<path>` or `=off` | The main projects folder. |
 | `--studio-fingerprint` | The short fingerprint of the Studio identity key. |
 | `--debug=on\|off` | Write full console output to `debug.log` in the data folder. |

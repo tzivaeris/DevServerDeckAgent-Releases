@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "2.15.59",
+      "date": "2026-11-02",
+      "notes": [
+        "Switches can be turned on for a set time: --allow=files:on --for=30m (also 2h, 1d; up to 7 days). The end time is signed with the switch and checked by the Agent itself, so a switch that ran out while the Agent was stopped is off when it starts. The tray menu and Account show \"until ...\".",
+        "A custom backup folder sent from the web is checked on its real location (links followed): not inside a project folder, not the Agent's data folder, not on a network file system (NFS, SMB and similar on Linux and macOS). It is accepted only with the files switch on or when it is the folder set at the PC with --backup-folder=<path>. If you use a custom backup folder, set it with --backup-folder after updating.",
+        "Linux and macOS: every file in the Agent's data folder is set owner-only (0600) and moved to the Agent user's own group (not a shared one such as docker), at start and every 6 hours.",
+        "metrics-history.json keeps 24 hours, drops deleted projects and is capped; it is written owner-only.",
+        "The dashboard shows a banner when this PC refused remote requests because a switch is off, with the switches and a link to Account.",
+        "Every release now has a SHA256SUMS.txt (also added to 2.15.58) so a download can be checked by hand."
+      ]
+    },
+    {
       "version": "2.15.58",
       "date": "2026-11-02",
       "notes": [
