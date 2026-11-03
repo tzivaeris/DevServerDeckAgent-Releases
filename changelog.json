@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "2.15.63",
+      "date": "2026-11-03",
+      "notes": [
+        "Windows: the tray menu is short (Status, Version, Open Dashboard, Reconnect Now, how many remote-access switches are on, Options, Quit). Everything else moved into an Options window: the four switches (each can be turned on for 30 minutes, 2 hours, 1 day or until you turn it off), the main projects folder and the new backup folder, Start with Windows, Debug logging and the WSL controls. The window only reports your choices; the Agent applies them, and each change is recorded in the activity record as made in the options window.",
+        "The backup folder can be chosen in the Options window (Windows) or the tray menu (macOS/Linux), as well as with --backup-folder. It is now refused inside anything that looks like a project - a folder with .git, package.json, requirements.txt, index.html, Dockerfile and similar, or a .sln/.csproj/.code-workspace file for the folder itself - not only inside projects you added to Dev Server Deck.",
+        "A change the Options window could not make is shown in a window with the reason, and the activity record says why (not only 'refused').",
+        "macOS and Linux keep the flat tray menu (now with the backup folder items); the Options window is Windows-only for now."
+      ]
+    },
+    {
       "version": "2.15.62",
       "date": "2026-11-02",
       "notes": [

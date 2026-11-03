@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.62`
+Version: `2.15.63`
 
 Expected release assets:
 
@@ -21,6 +21,19 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Tray menu and Options window (Windows, as of `2.15.63`)
+
+The tray icon's right-click menu is short: Status, Version, Open Dashboard, Reconnect Now, a line saying how many of the four remote-access switches are on ("Remote access: 2 of 4", or "all off"), **Options...** and Quit. Everything else is in the Options window:
+
+- the four remote-access switches, each of which can be turned on for **30 minutes, 2 hours, 1 day or until you turn it off** (a switch that is already on can keep its current end time). A timed switch ends by itself, even if the Agent was stopped meanwhile;
+- the main projects folder and the **backup folder** (Choose, Clear);
+- Start with Windows and Debug logging;
+- the WSL controls (Auto, On, Off, Shut down all WSL).
+
+The window only reports what you chose; the Agent checks the answer and applies it with the same code as the command-line flags, and each change appears in the activity record as made in the "options window". A change that is refused (a backup folder that is not allowed, for example) is shown in a window with the reason. The Options window is a small PowerShell form built into the Agent; it needs no extra file and never touches the signed switch file or its key. macOS and Linux keep the flat menu, which now also has the backup folder items; headless Agents use the command-line flags.
+
+**Backup folder rule (also `--backup-folder`):** besides the Agent's data folder, network shares and the folders of projects you added, a backup folder is now refused inside **anything that looks like a project**: a folder with `.git`, `package.json`, `requirements.txt`, `pyproject.toml`, `go.mod`, `Cargo.toml`, `pom.xml`, `Gemfile`, `Dockerfile`, `index.html` or a framework config, at the folder or any folder above it; and a folder with a `.sln`, `.csproj` or `.code-workspace` file, for the folder itself. A project you never added to Dev Server Deck used to slip through. The refusal names the folder and what it found.
 
 ## Activity record, refused-request banner, recovery key (as of `2.15.62`)
 
