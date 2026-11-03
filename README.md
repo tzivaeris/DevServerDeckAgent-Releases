@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.61`
+Version: `2.15.62`
 
 Expected release assets:
 
@@ -21,6 +21,12 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 ## Start projects when the Agent starts (as of `2.15.52`)
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
+
+## Activity record, refused-request banner, recovery key (as of `2.15.62`)
+
+- **Activity record.** The Agent keeps `audit-log.jsonl` in its data folder (owner-only, rotated at 2 MB): every change to a switch or folder (and whether it was made in the tray menu or on the command line), every remote request a switch **allowed** (route, the folder for file requests, and the role of the person who asked), every request it **refused**, and every update it verified or turned away. It never stores file contents, `.env` values or request bodies. Account (web, Machines) and Account, Agents (app) show the latest entries as "Activity on this machine". The web and the app cannot change or delete it.
+- **Refused-request banner.** The web dashboard and the Android app (Projects tab) show a banner for a machine you own when it refused remote requests in the last day because a switch is off, with the switches involved. Dismissing it hides what is known; a newer refusal shows it again.
+- **Recovery key.** Every Agent from `2.15.62` trusts a second signing key, `dsd-recovery-2026-11`, whose private half is kept offline. A release signed with it can tell Agents to stop trusting the daily release key (`dsd-release-2026-11`); Agents remember that, refuse anything signed with a revoked key from then on, and look at the latest release for such a notice shortly after starting and every 12 hours (they download and install nothing when doing so). The daily key cannot revoke anything and the recovery key cannot be revoked. An Agent that is offline, or older than `2.15.62`, does not learn of a revocation until it is online and updated. `docs/key-recovery-runbook.md` in the source repository describes the procedure.
 
 ## Signed updates (as of `2.15.60`)
 

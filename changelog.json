@@ -1,6 +1,16 @@
 {
   "entries": [
     {
+      "version": "2.15.62",
+      "date": "2026-11-02",
+      "notes": [
+        "A record of what the switches did: every switch or folder change (tray menu or command line), every remote request a switch allowed or refused (route, folder for file requests, role of the requester) and every update verified or refused, kept on the PC without file contents or secrets and shown in Account (web and app).",
+        "A banner on the web dashboard and in the Android app when a PC refused remote requests in the last day because a switch is off.",
+        "A second, offline recovery signing key is built in. A release signed with it can revoke the daily release key; Agents remember the revocation, refuse anything signed with a revoked key and check the latest release for such a notice shortly after starting and twice a day (nothing is downloaded or installed by that check).",
+        "The Agent now creates its own files owner-only from the start (2.15.61); the release check fails a release on test failures or unexpected skipped tests."
+      ]
+    },
+    {
       "version": "2.15.61",
       "date": "2026-11-02",
       "notes": [
