@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.66",
+      "date": "2026-11-04",
+      "notes": [
+        "Starting a second copy of the Agent while one is already running (autostart plus a manual start, for example) no longer ends with a raw FATAL error. The second copy writes one clear line (the port is in use, the running Agent keeps working) and closes quietly; the copy that was running is not touched."
+      ]
+    },
+    {
       "version": "2.15.65",
       "date": "2026-11-04",
       "notes": [
