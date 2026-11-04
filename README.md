@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.63`
+Version: `2.15.64`
 
 Expected release assets:
 
@@ -22,7 +22,9 @@ Release ZIPs are attached to GitHub Releases and are intentionally not committed
 
 Turn on "Start this project when the Agent starts" in Configure Project (web or Android). A few seconds after the Agent launches, for example after a restart of the PC, it starts those projects one at a time, skipping any that are already running or have no start command. The Agent itself must be running: on Windows enable "Start with Windows" in the tray menu (it starts once you sign in; a Windows service for machines with nobody signed in is not available yet), and on a Linux server installed with the one-line installer below it starts on boot. On macOS and Linux desktops the Agent does not start by itself yet.
 
-## Tray menu and Options window (Windows, as of `2.15.63`)
+## Tray menu and Options window (Windows, as of `2.15.64`)
+
+Since `2.15.64` the first line of the tray menu has a coloured dot (green connected, amber while connecting, red when something is wrong), the menu has an **About...** window (what this program is, its version and who built it), and the Options window shows the PC's name at the top right ("PC: 4TUNE"), so it is clear which machine the switches belong to.
 
 The tray icon's right-click menu is short: Status, Version, Open Dashboard, Reconnect Now, a line saying how many of the four remote-access switches are on ("Remote access: 2 of 4", or "all off"), **Options...** and Quit. Everything else is in the Options window:
 

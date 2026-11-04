@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.64",
+      "date": "2026-11-04",
+      "notes": [
+        "Windows tray: the Status line starts with a coloured dot - green when connected, amber while connecting, red when disconnected or something is wrong (the native menu cannot colour text).",
+        "Windows tray: a new About... window says that this is the Agent, shows its version, the product description and who built it (logIC & ViZion).",
+        "The Options window now shows the name of the PC at the top right, so you can tell which machine you are changing."
+      ]
+    },
+    {
       "version": "2.15.63",
       "date": "2026-11-03",
       "notes": [
