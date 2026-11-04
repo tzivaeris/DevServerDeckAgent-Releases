@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.65",
+      "date": "2026-11-04",
+      "notes": [
+        "Git on the dashboard and in the app now stays in step on every device. After a commit the changed-files state updates at once, and when a push finishes the 'commits to push' badge clears right away; before, a push or commit started from one device could leave the web or the app showing the old numbers for about two minutes.",
+        "While a commit, push, pull, checkout, merge, reset or stash is running, the Git button shows a small spinner (and 'committing' / 'pushing' in its tooltip) on the web and in the app, on every device, until it has really finished.",
+        "Windows tray: the Status line is now a normal (clickable, opens the dashboard) item so its coloured dot is no longer greyed out."
+      ]
+    },
+    {
       "version": "2.15.64",
       "date": "2026-11-04",
       "notes": [
