@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.67",
+      "date": "2026-11-04",
+      "notes": [
+        "The Options window now shows the connection status in colour at the top (green connected, amber while connecting, red when disconnected or something is wrong); the native tray menu cannot show colour, so the dot in front of its Status line stays one colour.",
+        "The About window shows the website (devserverdeck.com, a link that opens in your browser) and now shows the '&' in 'logIC & ViZion' correctly."
+      ]
+    },
+    {
       "version": "2.15.66",
       "date": "2026-11-04",
       "notes": [
