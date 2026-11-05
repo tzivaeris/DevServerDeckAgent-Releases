@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.68",
+      "date": "2026-11-05",
+      "notes": [
+        "The Options window shows the name you gave this PC on the dashboard instead of the computer's own name.",
+        "If a Studio turn was running when the chat was saved, the saved copy no longer hides the recovery offer for that turn.",
+        "A Codex Goal run now reports when it started, so the elapsed timer on the web and in the app counts from the real start."
+      ]
+    },
+    {
       "version": "2.15.67",
       "date": "2026-11-04",
       "notes": [
