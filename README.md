@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.68`
+Version: `2.15.69`
 
 Expected release assets:
 
@@ -118,6 +118,9 @@ Run the Agent once with a flag; it does its job and exits, and a running Agent p
 | `--projects-folder=<path>` or `=off` | The main projects folder. |
 | `--studio-fingerprint` | The short fingerprint of the Studio identity key. |
 | `--debug=on\|off` | Write full console output to `debug.log` in the data folder. |
+| `--list-projects` | Prints every project the Agent has: name, id, port, folder and command. Changes nothing. |
+| `--validate-config` | Checks `projects.json` and the other settings files and prints what is wrong: duplicate ids or ports, a bad port, a folder that is not there, a command with `{PORT}` and no port, a file that is not valid JSON. Exit code 1 if there is an error (warnings do not fail it). Changes nothing. |
+| `--clean-stale` | Shows which entries in `codexThreads.json` and `open-tunnels.json` point at a project that no longer exists. Add `--yes` to remove them (each file is copied to `<file>.bak-stale` first). It never touches Studio chat history, backups or project folders. |
 
 Settings for the Agent itself go in a `.env` file inside the data folder; from `2.15.58` a `.env` in the folder you start the Agent from is ignored. On Linux and macOS the data folder is readable only by your user.
 
