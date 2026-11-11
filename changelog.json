@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.69",
+      "date": "2026-11-11",
+      "notes": [
+        "When this PC refuses a remote request because a switch is off (files, commands, secrets or machine), it now tells you once, so you get one notification instead of having to look. After that it stays quiet until 24 hours pass with no refusal for that switch. The message names only the switch, never a path, command or person.",
+        "New command-line checks for people who run the Agent on a server: --list-projects shows what the Agent has, --validate-config reports what is wrong or odd without changing anything, and --clean-stale previews (or with --yes removes) leftover entries for projects that no longer exist. Chat history is never touched."
+      ]
+    },
+    {
       "version": "2.15.68",
       "date": "2026-11-05",
       "notes": [
