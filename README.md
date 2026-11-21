@@ -6,7 +6,7 @@ Source code is maintained separately. Download the latest verified build from th
 
 ## Latest version
 
-Version: `2.15.69`
+Version: `2.15.70`
 
 Expected release assets:
 
@@ -118,6 +118,8 @@ Run the Agent once with a flag; it does its job and exits, and a running Agent p
 | `--projects-folder=<path>` or `=off` | The main projects folder. |
 | `--studio-fingerprint` | The short fingerprint of the Studio identity key. |
 | `--debug=on\|off` | Write full console output to `debug.log` in the data folder. |
+| `--require-e2e=<secrets\|secrets_pro\|commands\|all>:on\|off` | From `2.15.70`: refuse plain, unencrypted requests for that group (`secrets` = .env, backups and source, `secrets_pro` = git and AI-commit credentials, `commands` = project import). Off by default; only changeable at the PC. |
+| `--backup-recipient=<file>` | The public key (JSON) that this PC encrypts its cloud backups to. Normally set by the web page or app through the encrypted channel after you create your recovery key. |
 | `--list-projects` | Prints every project the Agent has: name, id, port, folder and command. Changes nothing. |
 | `--validate-config` | Checks `projects.json` and the other settings files and prints what is wrong: duplicate ids or ports, a bad port, a folder that is not there, a command with `{PORT}` and no port, a file that is not valid JSON. Exit code 1 if there is an error (warnings do not fail it). Changes nothing. |
 | `--clean-stale` | Shows which entries in `codexThreads.json` and `open-tunnels.json` point at a project that no longer exists. Add `--yes` to remove them (each file is copied to `<file>.bak-stale` first). It never touches Studio chat history, backups or project folders. |
