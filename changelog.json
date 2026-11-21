@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "2.15.70",
+      "date": "2026-11-21",
+      "notes": [
+        "Your .env files, project backups and exports, git credentials and AI keys can now travel end-to-end encrypted between the web page or app and this PC, so the cloud servers cannot read them. It switches on by itself once the PC has this version and you use an updated web page or app. Older web tabs and app versions keep working until you turn the requirement on.",
+        "New setting at the PC: run the Agent once with --require-e2e=<secrets|secrets_pro|commands|all>:on (or :off) to make it refuse plain, unencrypted requests for those groups. It is off by default and can only be changed at the PC.",
+        "Encrypted cloud backup of the project list: you create a recovery key on your device, the PC encrypts its project export to your public key and the cloud only stores scrambled data. --backup-recipient=<file> sets the key at the PC. If the PC cannot read its project list, no backup is made, so a good backup is never replaced by an empty one. The key can only be set through the encrypted channel or at the PC, never by the server in plain form.",
+        "Downloading a project structure over the encrypted channel is limited to 50 MB of zip (70 MB stays the limit for plain requests), so a large download can no longer cut this PC off from the relay.",
+        "The remote-access card shows the end-to-end state per PC and a line when the backup recipient key was replaced."
+      ]
+    },
+    {
       "version": "2.15.69",
       "date": "2026-11-11",
       "notes": [
