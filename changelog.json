@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.71",
+      "date": "2026-11-22",
+      "notes": [
+        "AI commit messages can now use Codex. Pick Codex (ChatGPT) as the provider in the Git screen or in Account; it uses the Codex sign-in you already have in Studio, so there is no API key to enter.",
+        "If Codex is not installed on this PC, or you are not signed in to it in Studio yet, the Git screen says so in plain words. Shared developers do not get Codex, because it would use the owner's ChatGPT account.",
+        "Generating a commit message with Codex does not appear in your Studio history and does not interrupt a Studio turn that is running."
+      ]
+    },
+    {
       "version": "2.15.70",
       "date": "2026-11-21",
       "notes": [
