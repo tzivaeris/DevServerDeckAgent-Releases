@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.73",
+      "date": "2026-11-23",
+      "notes": [
+        "A project whose database dependency has no port set now starts instead of stopping silently. The start command (for example docker compose up -d db) still runs, and the project log says that no port is set.",
+        "Any error while preparing the database dependency is now written to the project log and the project starts anyway, instead of leaving the project on Starting with an empty log.",
+        "The database line in the log now names the type and port, for example postgresql on port 5432."
+      ]
+    },
+    {
       "version": "2.15.72",
       "date": "2026-11-23",
       "notes": [
