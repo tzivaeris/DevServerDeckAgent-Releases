@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.75",
+      "date": "2026-11-23",
+      "notes": [
+        "The Docker window now has a Start Docker / Stop Docker button, so you can open or close Docker itself from the web or the app. On Windows and macOS it opens or closes Docker Desktop; on Linux it uses the Docker Desktop service or the system Docker service.",
+        "It counts as a machine action: it needs the machine switch turned on at the PC, like stopping a container. If Linux needs administrator rights the message tells you the exact command to run on the machine.",
+        "Stopping Docker stops every container, so the web and the app ask first."
+      ]
+    },
+    {
       "version": "2.15.74",
       "date": "2026-11-23",
       "notes": [
