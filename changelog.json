@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.74",
+      "date": "2026-11-23",
+      "notes": [
+        "Images you attach in Studio are now also saved as real files in your project, in a folder called .studio-attachments, so any AI model can copy them into your project (for example logos). Before, the model could only see the picture and had no file to use.",
+        "The model is told the file's path in the message. The folder ignores itself in Git, so these files never end up in a commit. The same picture sent twice reuses one file.",
+        "A project without a folder saves attached images in the Agent's data folder instead."
+      ]
+    },
+    {
       "version": "2.15.73",
       "date": "2026-11-23",
       "notes": [
