@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.72",
+      "date": "2026-11-23",
+      "notes": [
+        "A project that depends on Docker now starts reliably. If its database command uses Docker (for example docker compose up -d db) and Docker Desktop is not running, the Agent opens Docker Desktop first and waits for it.",
+        "The Docker command now gets up to 3 minutes to finish and the project waits up to a minute for the database port to answer, instead of giving up after 8 seconds. Other databases keep the old short wait.",
+        "The project's log shows each step, so you can see what it is waiting for."
+      ]
+    },
+    {
       "version": "2.15.71",
       "date": "2026-11-22",
       "notes": [
