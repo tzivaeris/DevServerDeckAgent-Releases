@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.76",
+      "date": "2026-11-23",
+      "notes": [
+        "The Docker window now shows that Docker is off within about 2 seconds, so the Start Docker button appears at once instead of after about 10 seconds.",
+        "Docker's state is read from its local socket or pipe first. If Docker answers by another route it is still reported as running, never wrongly as off."
+      ]
+    },
+    {
       "version": "2.15.75",
       "date": "2026-11-23",
       "notes": [
