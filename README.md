@@ -94,7 +94,7 @@ A project's settings live in `projects.json` in the data folder (`%APPDATA%\dev-
 | `command` | What Start runs in the project folder: one program with arguments, e.g. `npm run dev -- -p {PORT}`. Empty for a repository-only project. |
 | `port`, `{PORT}` | `{PORT}` inside `command` is replaced by `port` when the project starts. |
 | `entryFile` | Added to the end of the command (`node` + `server.js`); not added twice if the command already contains it. |
-| `database` | `type`, `port`, `startCommand`, `stopCommand`, `autoStart` (start it before the project), `autoStop` (stop it after). `platformOverrides` gives other commands per `win32`, `linux`, `darwin`; a platform with no entry runs nothing. |
+| `database` | `type`, `port`, `startCommand`, `stopCommand`, `autoStart` (start it before the project), `autoStop` (stop it after). `platformOverrides` gives other commands per `win32`, `linux`, `darwin`; a platform with no entry runs nothing. A Docker command (for example `docker compose up -d db`) opens Docker Desktop first when it is not running, gets up to 3 minutes, and the project then waits up to a minute for the port; with no port set the command still runs on every start. |
 | `group`, `links` | The workspace the project is listed under, and shortcut links on its card. |
 | `autoRestartOnCrash` | Start the project again when it exits unexpectedly. |
 | `startWithAgent` | Start it whenever the Agent starts (after a reboot or an update). |
