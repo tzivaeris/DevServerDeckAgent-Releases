@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.78",
+      "date": "2026-11-24",
+      "notes": [
+        "A GitHub release no longer needs files. If no ZIPs or installers are found, or you choose to leave them out, the release is created without files and GitHub adds the source code archives."
+      ]
+    },
+    {
       "version": "2.15.77",
       "date": "2026-11-24",
       "notes": [
