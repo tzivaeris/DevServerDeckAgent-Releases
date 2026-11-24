@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.79",
+      "date": "2026-11-25",
+      "notes": [
+        "Agent mode is more reliable with small local models. If a model writes its tool call as text instead of a real call, the Agent now recognises it and runs it (it still asks for approval first), instead of ending the turn with nothing done.",
+        "In long agent turns, older tool results are shortened so a model with a small context keeps working.",
+        "After several failed tool calls in a row the model is asked to stop and rethink, and after eight the turn ends with what was found so far."
+      ]
+    },
+    {
       "version": "2.15.78",
       "date": "2026-11-24",
       "notes": [
