@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.77",
+      "date": "2026-11-24",
+      "notes": [
+        "When a push fails because this PC has no Git login for the remote, the app and the website now ask for a personal access token and push once with it. The token is used for that one push only and is not stored by the Agent.",
+        "An optional tick box asks the PC to remember the token in Git's own credential store (Windows Credential Manager, macOS keychain), so later pushes just work."
+      ]
+    },
+    {
       "version": "2.15.76",
       "date": "2026-11-23",
       "notes": [
