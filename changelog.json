@@ -1,6 +1,14 @@
 {
   "entries": [
     {
+      "version": "2.15.81",
+      "date": "2026-11-25",
+      "notes": [
+        "You can now send a message to an Agent or Plan task while it is running. It reaches the model before its next step, so you can redirect the task without stopping it. Use the Send button beside Stop in the app or on the website.",
+        "If an Agent-mode reply only says what it is about to do (for example \"Let me read the file\") without doing it, the model is now asked once to carry on instead of the turn ending with nothing done."
+      ]
+    },
+    {
       "version": "2.15.80",
       "date": "2026-11-25",
       "notes": [
