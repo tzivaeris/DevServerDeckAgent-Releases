@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.80",
+      "date": "2026-11-25",
+      "notes": [
+        "When Ollama cannot tell what a model supports (an older Ollama, or a lookup that fails), the Agent now reports that as unknown instead of saying the model has no tools. Studio then lets Agent mode try the model instead of switching it off."
+      ]
+    },
+    {
       "version": "2.15.79",
       "date": "2026-11-25",
       "notes": [
