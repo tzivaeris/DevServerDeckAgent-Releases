@@ -1,6 +1,15 @@
 {
   "entries": [
     {
+      "version": "2.15.82",
+      "date": "2026-11-27",
+      "notes": [
+        "You can now send a message to a running Codex task too: Codex takes it in at its next step, so you can redirect the task without stopping it.",
+        "In Agent mode, a command you declined is no longer put to you a second time when the model sends it again with only a comment or spacing changed. The model is told to ask what you would prefer instead. A message you send while the task runs clears this.",
+        "In Agent mode, a task that only read the project and ends on a line saying what it did (for example \"Catalogued all the routes.\") is asked once for the answer itself. A short plain answer is left alone."
+      ]
+    },
+    {
       "version": "2.15.81",
       "date": "2026-11-25",
       "notes": [
