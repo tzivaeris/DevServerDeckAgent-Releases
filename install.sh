@@ -21,7 +21,7 @@ case "$(uname -m)" in
     exit 1
     ;;
 esac
-DOWNLOAD_URL="https://github.com/tzivaeris/DevServerDeckAgent-Releases/releases/latest/download/DevServerDeckAgent-linux-${BINARY_ARCH}.zip"
+DOWNLOAD_URL="https://github.com/devserverdeck/DevServerDeckAgent-Releases/releases/latest/download/DevServerDeckAgent-linux-${BINARY_ARCH}.zip"
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "This installer must run as root (writes to /etc/systemd/system and $INSTALL_DIR)." >&2
