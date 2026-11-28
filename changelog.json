@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.83",
+      "date": "2026-11-28",
+      "notes": [
+        "Updates and downloads now come from the Dev Server Deck organization on GitHub instead of a personal account. Nothing changes for you: the old links keep working, and this version simply starts using the new address."
+      ]
+    },
+    {
       "version": "2.15.82",
       "date": "2026-11-27",
       "notes": [
