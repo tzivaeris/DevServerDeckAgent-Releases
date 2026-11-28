@@ -1,6 +1,13 @@
 {
   "entries": [
     {
+      "version": "2.15.84",
+      "date": "2026-11-28",
+      "notes": [
+        "The download and update address is now shorter (dsd-agent-releases). Nothing changes for you: the old address keeps working."
+      ]
+    },
+    {
       "version": "2.15.83",
       "date": "2026-11-28",
       "notes": [
